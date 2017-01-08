@@ -17,7 +17,6 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
     # 1. Re/asignar instancias a la partición con la mediana más próxima
     for(i in 1:nrow(x)) {
       distances <- c()
-      # value = x[i,] %in% medians
       value = nrow(merge(x[i,], medians))>0
       if(!value) {
         for(j in 1:nrow(medians)) {
@@ -28,14 +27,24 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
     }
     # 2. Selecciona una de las medianas al azar y otra instancia del cluster de la mediana al azar.
     randomMedian = randomElements(medians, 1)
+    clusterMedianInstance
     repeat {
       clusterMedianInstance = randomElements(xWithMedians, 1)
-      if(getPosInDataFrame(randfomMedian, medians) == clusterMedianInstance[,3]) {
+      if(!is.na(clusterMedianInstance) && (getPosInDataFrame(randfomMedian, medians) == clusterMedianInstance[,3])) {
         break
       }
     }
     # 3. Si la nueva instancia mejora el criterio de error absoluto, se reemplaza la mediana.
-
+    absolutError = 0
+    for(i in 1:nrow(medians)) {
+      for(j in 1:nrow(x)) {
+        if(clusterMedianInstance[,3] == xWithMedians[j,3]) {
+          clInstance = clusterMedianInstance[1:2]
+          absolutError = absolutError + euc.dist(x[j,], clInstance)
+        }
+      }
+    }
+    
     if(!changesInMedian || m <= 0) {
       break
     }
