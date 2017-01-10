@@ -9,15 +9,18 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
   
   while(l > 0) {
     # 1. Selecciona k instancias al azar como medianas.
-    medians <- randomElements(x, k);
+    # medians <- randomElements(x, k);
+    
+    #Selecciona al azar k filas del data.frame x
+    medians <- x[sample(nrow(x), k), ]
     
     iterations = 0
     # 2. Repetir
     repeat {
       
       # 1. Re/asignar instancias a la partición con la mediana más próxima // TODO: guardar las distancias
-      lapply(x[1:2], 1, function(x) {
-        lapply(medians[1:2], 1, function(y){
+      lapply(x[1:2], function(x) {
+        lapply(medians[1:2], function(y){
           euc.dist(x,y)
         })
       })
@@ -31,7 +34,7 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
       # 3. Si la nueva instancia mejora el criterio de error absoluto, se reemplaza la mediana.
       
       
-      # Mientras haya cambios en las medianas o se alcance m iteraciones sin cambios
+      # Condición de salida del repeat - Mientras haya cambios en las medianas o se alcance m iteraciones sin cambios
       if(!changesInMedian || iterations >= m) {
         break
       }
