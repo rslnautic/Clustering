@@ -8,6 +8,8 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
   xWithMedians <- x;
   xWithMedians["Medians"] <- NA;
   xWithMedians["DistanceToMedian"] <- NA;
+  xWithMedians["TempMedians"] <- NA;
+  xWithMedians["TempDistanceToMedian"] <- NA;
   
   # 1. Repetir l veces
   while(l > 0) {
@@ -25,7 +27,7 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
       for(j in 1:nrow(medians)) {
         distances[j] <- euc.dist(x[i,], medians[j,])
       }
-      xWithMedians[i,3] = getPosMinValue(distances)
+      xWithMedians[i,3] = row.names(medians[getPosMinValue(distances), ])
       xWithMedians[i,4] = min(distances)
 
     }
@@ -33,15 +35,14 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
     randomMedian = randomElements(medians, 1)
     clusterMedianInstance = NA
 
-    clusterMedianInstance = xWithMedians[sample(which(xWithMedians$Medians==row.name(randomMedian)), 1),]
+    clusterMedianInstance = xWithMedians[sample(which(xWithMedians$Medians==row.names(randomMedian)), 1),]
       
     # 3. Si la nueva instancia mejora el criterio de error absoluto, se reemplaza la mediana.
     absolutError = 0
     for(i in 1:nrow(medians)) {
       for(j in 1:nrow(x)) {
         if(clusterMedianInstance[,3] == xWithMedians[j,3]) {
-          clInstance = clusterMedianInstance[1:2]
-          absolutError = absolutError + euc.dist(x[j,], clInstance)
+          absolutError = absolutError + xWithMedians[j,4] ^ 2
         }
       }
     }
@@ -73,7 +74,7 @@ getPosMinValue <- function(vector) {
   minValue <- 999999
   posMinValue <- -1
   for(i in 1:length(vector)) {
-    if(vector[i] < minValue) {
+    if(vector[i] <= minValue) {
       minValue = vector[i]
       posMinValue = i
     }
