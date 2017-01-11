@@ -1,3 +1,7 @@
+install.packages("ggfortify")
+install.packages("ggplot2")
+install.packages("cluster")
+
 library(ggfortify)
 library(ggplot2)
 library(cluster)
