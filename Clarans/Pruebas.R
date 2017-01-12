@@ -93,16 +93,28 @@ rownames(c)[2] <- "4"
 
 
 
+#----------------------
+medians
+apply(medians,1,euc.dist, iris[1:2][1,])
+apply(medians,1,euc.dist, iris)
+apply(medians,1,euc.dist, iris[1:2])
+apply(medians,1,euc.dist, iris[1:2][1,])
+which.min(apply(medians,1,euc.dist, iris[1:2][1,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][2,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][3,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][4,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][78,]))
+which.min(apply(medians,1,euc.dist, x[78,]))
+distances = apply(medians,1,euc.dist, x[78,])
+distances
+which.min(distances)
+distances[which.min(distances)]
+c(which.min(distances),distances[which.min(distances)])
+clustering <- c(which.min(distances),distances[which.min(distances)])
+colnames(clustering) <- c("Median","Distance")
+rownames(clustering) <- c("Median","Distance")
 
 
-
-
-
-
-
-
-
-
-
-
-
+apply(x, 1, apply(medians,1,euc.dist, x))
+apply(x, 1, function() <- apply(medians,1,euc.dist, x))
+apply(x, 1, function() apply(medians,1,euc.dist, x))

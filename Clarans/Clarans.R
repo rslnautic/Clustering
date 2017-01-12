@@ -60,9 +60,9 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
       tempMediansWithDistances = calculateMediansAndDistances(x, swapMedians)
       
       bestAbsolutError = sum(mediansWithDistances$DistanceToMedian)
-      temoAbsolutError = sum(tempMediansWithDistances$DistanceToMedian)
+      tempAbsolutError = sum(tempMediansWithDistances$DistanceToMedian)
       
-      if(temoAbsolutError < bestAbsolutError) {
+      if(tempAbsolutError < bestAbsolutError) {
         mediansWithDistances$Medians = tempMediansWithDistances$Medians
         mediansWithDistances$DistanceToMedian = tempMediansWithDistances$DistanceToMedian
         medians = swapMedians
@@ -79,8 +79,8 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
     }
     l <- l - 1
   }
-    
-  return (tempMediansWithDistances);
+
+  return (list(clusters = mediansWithDistances[,1], medoids = medians, absoluteError = bestAbsolutError));
 }
 
 
