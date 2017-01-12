@@ -10,3 +10,111 @@ interior <- function(x,y)dist(rbind(x,y))
 exterior <- function(y) min(apply(x,1,interior,y))
 
 apply(y,1,exterior)
+
+
+c(1,2)
+
+list(cluster=c(1,2), medoids=c(1,2,3), error = 2.5)
+
+temp = list(clusters=c(1,2), medoids=c(1,2,3), error = 2.5)
+
+temp$clusters
+
+a = c(1,2)
+b = c(3,4)
+
+help("rbind")
+rbind(a,b)
+cbind(a,b)
+cbind(a,0)
+rbind(a,0)
+
+min(2, 3, 4, 5)
+which.min(c(2, 3, 4, 5))
+which.max(c(2, 3, 4, 5))
+
+iris[5][which(iris$Species == "versicolor"), ]
+
+which(iris$Species == "versicolor")
+
+sample(which(iris$Species == "versicolor"), 1)
+
+sample(which(iris$Species == "versicolor"), 2)
+
+miprint <- function(x) print(x)
+
+miprint(2)
+
+c = rbind(a,b)
+c
+
+apply(c, 1, miprint)
+
+apply(c, 2, miprint)
+
+print(2,3)
+
+miprint <- function(x, y) print(cbind(x,y))
+
+
+apply(c, 1, miprint, 0)
+
+a
+b
+a+b
+
+as.factor(a)
+
+# importante para hacer plot de los cluster -> Ejemplo apuntes kmedians plot con factor
+as.factor(c(1,2,1,2,1,2))
+
+data.frame(a)
+
+row.names(data.frame(a[1]))
+
+data.frame(a,b)
+
+#ggplot
+head(iris)
+
+colnames(iris)
+
+rownames(iris)
+
+c = data.frame(a,b)
+
+colnames(c)
+
+colnames(c) <- c("Primera", "Segunda")
+
+colnames(c)
+
+rownames(c)[2] <- "4"
+
+
+
+#----------------------
+medians
+apply(medians,1,euc.dist, iris[1:2][1,])
+apply(medians,1,euc.dist, iris)
+apply(medians,1,euc.dist, iris[1:2])
+apply(medians,1,euc.dist, iris[1:2][1,])
+which.min(apply(medians,1,euc.dist, iris[1:2][1,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][2,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][3,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][4,]))
+which.min(apply(medians,1,euc.dist, iris[1:2][78,]))
+which.min(apply(medians,1,euc.dist, x[78,]))
+distances = apply(medians,1,euc.dist, x[78,])
+distances
+which.min(distances)
+distances[which.min(distances)]
+c(which.min(distances),distances[which.min(distances)])
+clustering <- c(which.min(distances),distances[which.min(distances)])
+colnames(clustering) <- c("Median","Distance")
+rownames(clustering) <- c("Median","Distance")
+
+
+apply(x, 1, apply(medians,1,euc.dist, x))
+apply(x, 1, function() <- apply(medians,1,euc.dist, x))
+apply(x, 1, function() apply(medians,1,euc.dist, x))
