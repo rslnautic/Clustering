@@ -4,8 +4,8 @@ install.packages("ggfortify")
 install.packages("ggplot2")
 install.packages("cluster")
 
-library(ggfortify)
 library(ggplot2)
+library(ggfortify)
 library(cluster)
 
 library(stats)
@@ -47,7 +47,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$cluster)) +
 
 
 #SEPAL <- PAM
-distance = "euclidan"
+distance = "euclidean"
 k = 3
 
 cluster <- pam(iris[1:2], k, metric = distance)
@@ -62,7 +62,7 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clustering)) +
   coord_fixed(ratio = 1)
 
 #SEPAL <- CLARA
-distance = "euclidan"
+distance = "euclidean"
 k = 3
 
 cluster <- clara(iris[1:2], k, metric = distance)

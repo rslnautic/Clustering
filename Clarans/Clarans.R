@@ -3,7 +3,7 @@
 euc.dist <- function(x1, x2) sqrt(sum((x1 - x2) ^ 2))
 manhattan.dist <- function(x1, x2) abs(x1[,1] - x2[,1]) + abs(x1[,2] - x2[,2])
 
-calcultateDistance <- function(x1, x2, distanceType) {
+calculateDistance <- function(x1, x2, distanceType) {
   if(distanceType == "euclidean") {
     return (euc.dist(x1, x2))
   } else if(distanceType == "manhattan") {
@@ -21,7 +21,7 @@ calculateMediansAndDistances<-function(x, medians, distanceType) {
     distances <- c()
     
     for(j in 1:nrow(medians)) {
-      distances[j] <- calcultateDistance(x[i,], medians[j,], distanceType)
+      distances[j] <- calculateDistance(x[i,], medians[j,], distanceType)
     }
     dataframeOfMediansAndDistances[i,1] = row.names(medians[which.min(distances), ])
     dataframeOfMediansAndDistances[i,2] = min(distances)
