@@ -9,91 +9,105 @@ library(cluster)
 library(stats)
 library(datasets)
 
-#S?palo <- CLARANS
+
+#SEPAL <- CLARANS
 cluster <- clarans(x <- iris[1:2], 3,"euclidean", FALSE, 5, 10)
 cluster$clustering <- as.factor(cluster$clusters)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clusters)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$clusters)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors)))
-ggtitle("Sepalo - Clarans")
+  ggtitle("Sepal - Clarans") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
 
 
-#SÉPALO <- K-MEANS
+#SEPAL <- K-MEANS
 cluster <- kmeans(iris[1:2], 3)
 cluster$cluster <- as.factor(cluster$cluster)
 cluster$medoids <- as.data.frame(cluster$centers)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$cluster)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$cluster)) +
   geom_point() +
-  geom_point(data= cluster$centers, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors))) +
+  ggtitle("Sepal - K-Means") +
+  geom_point(shape = 15, size = 2, data= cluster$centers, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors))) +
   coord_fixed(ratio = 1)
 
 
-#SÉPALO <- PAM
+#SEPAL <- PAM
 cluster <- pam(iris[1:2], 3, metric = "euclidean")
 cluster$clustering <- as.factor(cluster$clustering)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clustering)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$clustering)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors)))
+  ggtitle("Sepal - Pam") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
 
-#SÉPALO <- CLARA
+#SEPAL <- CLARA
 cluster <- clara(iris[1:2], 3, metric = "eucliedan")
 cluster$clustering <- as.factor(cluster$clustering)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clustering)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$clustering)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors)))
+  ggtitle("Sepal - Clara") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
 
+#--------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-#PÉTALO <- CLARANS
+#PETAL <- CLARANS
 cluster <- clarans(x <- iris[3:4], 3,"euclidean", FALSE, 5, 10)
 cluster$clustering <- as.factor(cluster$clusters)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Petal.Length, Petal.Width, color = cluster$clusters)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$clusters)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors)))
+  ggtitle("Petal - Clarans") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
 
 
-#PÉTALO <- K-MEANS
-Cluster <- kmeans(iris[3:4], 3)
-Cluster$cluster <- as.factor(Cluster$cluster)
+#PETAL <- K-MEANS
+cluster <- kmeans(iris[3:4], 3)
+cluster$cluster <- as.factor(cluster$cluster)
 cluster$medoids <- as.data.frame(cluster$centers)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
-ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster$cluster)) +
+ggplot(iris, aes(Petal.Length, Petal.Width, color = cluster$cluster)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$cluster)) +
   geom_point() +
-  geom_point(data= Cluster$centers, mapping=aes(Petal.Length, Petal.Width, color = factor(colors)))
+  ggtitle("Petal - K-Means") +
+  geom_point(shape = 15, size = 2, data= cluster$centers, mapping=aes(Petal.Length, Petal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
   
 
-#PÉTALO <- PAM
+#PETAL <- PAM
 cluster <- pam(iris[3:4], 3, metric = "euclidean")
 cluster$clustering <- as.factor(cluster$clustering)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Petal.Length, Petal.Width, color = cluster$clustering)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$cluster)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors)))
+  ggtitle("Petal - Pam") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)
 
-#PÉTALO <- CLARA
+#PETAL <- CLARA
 cluster <- clara(iris[3:4], 3, metric = "eucliedan")
 cluster$clustering <- as.factor(cluster$clustering)
 cluster$medoids <- as.data.frame(cluster$medoids)
 colors <- paste(row.names(cluster$medoids), " - Centroid", sep="")
 ggplot(iris, aes(Petal.Length, Petal.Width, color = cluster$clustering)) +
+  stat_ellipse(geom = "polygon", alpha = 1/2, aes(fill = cluster$clustering)) +
   geom_point() +
-  geom_point(data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors)))
+  ggtitle("Petal - Clara") +
+  geom_point(shape = 15, size = 2, data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(colors))) +
+  coord_fixed(ratio = 1)

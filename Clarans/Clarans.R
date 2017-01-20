@@ -1,7 +1,4 @@
-x <- iris[1:2]
-k = 2
-l = 5
-m = 10
+# Clarans.R - Sergio Roselló y Ramón Serrano
 
 euc.dist <- function(x1, x2) sqrt(sum((x1 - x2) ^ 2))
 manhattan.dist <- function(x1, x2) abs(x1[,1] - x2[,1]) + abs(x1[,2] - x2[,2])
@@ -24,7 +21,6 @@ calculateMediansAndDistances<-function(x, medians, distanceType) {
     distances <- c()
     
     for(j in 1:nrow(medians)) {
-      # distances[j] <- euc.dist(x[i,], medians[j,])
       distances[j] <- calcultateDistance(x[i,], medians[j,], distanceType)
     }
     dataframeOfMediansAndDistances[i,1] = row.names(medians[which.min(distances), ])
@@ -38,7 +34,6 @@ calculateMediansAndDistances<-function(x, medians, distanceType) {
 clarans(x,k,"euclidean", FALSE, 5, 10)
 
 clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
-  # xWithMedians <- x;
   
   mediansWithDistances = data.frame(matrix(0, ncol = 2, nrow = nrow(x)))
   colnames(mediansWithDistances) <- c("Medians","DistanceToMedian")
