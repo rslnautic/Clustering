@@ -31,15 +31,20 @@ calculateMediansAndDistances<-function(x, medians, distanceType) {
   return (dataframeOfMediansAndDistances)
 }
 
-clarans(x,k,"euclidean", FALSE, 5, 10)
-
 clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
+  
+  finalClusters = NA
   
   mediansWithDistances = data.frame(matrix(0, ncol = 2, nrow = nrow(x)))
   colnames(mediansWithDistances) <- c("Medians","DistanceToMedian")
   
   tempMediansWithDistances = data.frame(matrix(0, ncol = 2, nrow = nrow(x)))
   colnames(tempMediansWithDistances) <- c("Medians","DistanceToMedian")
+  
+  finalMedians = NA;
+  finalBestAbsoluteError = NA;
+  
+  
   
   # 1. Repetir l veces
   while(l > 0) {
@@ -82,12 +87,17 @@ clarans <-function(x, k, metric = "euclidean", stand = FALSE, l = 5, m = 10) {
       if(iterations >= m) {
         break
       }
-      
+    }
+    
+    if((is.na(finalClusters) && is.na(finalBestAbsoluteError) && is.na(finalMedians)) || !is.na(finalBestAbsoluteError) && bestAbsolutError < finalBestAbsoluteError) {
+      finalClusters = mediansWithDistances$Medians
+      finalMedians = medians
+      finalBestAbsoluteError = bestAbsolutError
     }
     l <- l - 1
   }
 
-  return (list(clusters = mediansWithDistances[,1], medoids = medians, absoluteError = bestAbsolutError));
+  return (list(clusters = finalClusters, medoids = finalMedians, absoluteError = finalBestAbsoluteError));
 }
 
 
