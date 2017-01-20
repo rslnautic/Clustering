@@ -9,6 +9,15 @@ library(cluster)
 library(stats)
 library(datasets)
 
+#Sépalo <- CLARANS
+cluster <- clarans(x <- iris[1:2], 3,"euclidean", FALSE, 5, 10)
+cluster$clustering <- as.factor(cluster$clusters)
+cluster$medoids <- as.data.frame(cluster$medoids)
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clusters)) +
+  geom_point() +
+  geom_point(data= cluster$medoids, mapping=aes(Sepal.Length, Sepal.Width, color = factor(c('centroid 1', 'centroid 2','centroid3'))))
+
+
 #SÃ‰PALO <- K-MEANS
 cluster <- kmeans(iris[1:2], 3)
 cluster$cluster <- as.factor(cluster$cluster)
@@ -46,6 +55,13 @@ ggplot(iris, aes(Sepal.Length, Sepal.Width, color = cluster$clustering)) +
 
 
 
+#Sépalo <- CLARANS
+cluster <- clarans(x <- iris[3:4], 3,"euclidean", FALSE, 5, 10)
+cluster$clustering <- as.factor(cluster$clusters)
+cluster$medoids <- as.data.frame(cluster$medoids)
+ggplot(iris, aes(Petal.Length, Petal.Width, color = cluster$clusters)) +
+  geom_point() +
+  geom_point(data= cluster$medoids, mapping=aes(Petal.Length, Petal.Width, color = factor(c('centroid 1', 'centroid 2','centroid3'))))
 
 
 #PÃ‰TALO <- K-MEANS
